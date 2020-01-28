@@ -13,10 +13,11 @@ int main() {
 
   c.red = 0;
   c.green = MAX_COLOR;
-  c.blue = 0;
+  c.blue = MAX_COLOR/2;
 
   clear_screen(s);
 
+  draw_line(100,800,5,5, s, c);
 
   display(s);
   save_extension(s, "lines.png");
