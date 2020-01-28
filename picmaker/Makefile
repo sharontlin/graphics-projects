@@ -1,12 +1,12 @@
-all: main.c
-	gcc -o out main.c
+all: picgen.c
+	gcc -o out picgen.c
 	./out
 
 clean:
 	rm out
     
 run:
-	./exec.out
+	./out
     
 convert:
 	convert image.ppm image.png
