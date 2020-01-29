@@ -17,7 +17,10 @@ int main() {
 
   clear_screen(s);
 
-  draw_line(100,800,5,5, s, c);
+  for (int i = 0; i < 550; i = i + 20) {
+    draw_line(i,400,i,5, s, c);
+    draw_line(i+10,300,i+10,5, s, c);
+  }
 
   display(s);
   save_extension(s, "lines.png");
