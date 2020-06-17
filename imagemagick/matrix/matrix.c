@@ -22,6 +22,15 @@ print the matrix such that it looks like
 the template in the top comment
 */
 void print_matrix(struct matrix *m) {
+  int row;
+  int col;
+
+  for (row = 0; row < m->rows; row++) {
+    for (col = 0; col < m->lastcol; col++) {
+      printf("%.2f ", m->m[row][col]);
+    }
+    printf("\n");
+  }
 }
 
 /*-------------- void ident() --------------
@@ -30,6 +39,11 @@ Inputs:  struct matrix *m <-- assumes m is a square matrix
 turns m in to an identity matrix
 */
 void ident(struct matrix *m) {
+  m->lastcol = 0;
+  int i;
+  for (i = 0; i < 4; i++, m->lastcol++) {
+    m->m[i][i] = 1;
+  }
 }
 
 
@@ -41,6 +55,22 @@ multiply a by b, modifying b to be the product
 a*b -> b
 */
 void matrix_mult(struct matrix *a, struct matrix *b) {
+  struct matrix *new_m;
+  new_m = new_matrix(a->cols, b->rows);
+
+  int i;
+  for (i = 0; i < a->rows; i++) {
+    int j;
+    for (j = 0; j < b->cols; j++) {
+      int k;
+      for (k = 0; k < b->rows; k++) {
+        new_m->m[i][k] += a->m[i][j] * b->m[j][k];
+      }
+    }
+  }
+
+  copy_matrix(new_m, b);
+  free_matrix(new_m);
 }
 
 
