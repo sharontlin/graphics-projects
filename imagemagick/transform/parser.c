@@ -61,14 +61,88 @@ void parse_file ( char * filename,
   char line[256];
   clear_screen(s);
 
+  color c;
+  c.red = MAX_COLOR;
+  c.green = MAX_COLOR;
+  c.blue = 0;
+
   if ( strcmp(filename, "stdin") == 0 ) 
     f = stdin;
   else
     f = fopen(filename, "r");
   
   while ( fgets(line, 255, f) != NULL ) {
+    struct matrix *transform_matrix = new_matrix(4, 4);
     line[strlen(line)-1]='\0';
     printf(":%s:\n",line);
+
+    if (strcmp(line, "line") == 0) {
+      fgets(line, 255, f);
+      double x1, y1, z1, x2, y2, z2;
+      sscanf(line, "%lf %lf %lf %lf %lf %lf", &x1, &y1, &z1, &x2, &y2, &z2);
+      add_edge(edges, x1, y1, z1, x2, y2, z2);
+    } else if (strcmp(line, "ident") == 0) {
+      
+      ident(transform);
+      
+    } else if (strcmp(line, "scale") == 0) {
+
+      fgets(line, 255, f);  
+      double x, y, z;
+      sscanf(line, "%lf %lf %lf", &x, &y, &z);
+      transform_matrix = make_scale(x, y, z);
+      matrix_mult(transform_matrix, transform);
+      
+    } else if (strcmp(line, "move") == 0) {
+      
+      fgets(line, 255, f);  
+      double x, y, z;
+      sscanf(line, "%lf %lf %lf", &x, &y, &z);
+      transform_matrix = make_translate(x, y, z);
+      matrix_mult(transform_matrix, transform);
+      
+    } else if (strcmp(line, "rotate") == 0) {
+      
+      fgets(line, 255, f);
+      char axis = 0;
+      double theta = 0;
+
+      sscanf(line, "%c %lf", &axis, &theta);
+           
+      switch(axis) {
+      case 'x':
+        transform_matrix = make_rotX(theta);
+        break;
+      case 'y':
+        transform_matrix = make_rotY(theta);
+        break;
+      case 'z':
+        transform_matrix = make_rotZ(theta);
+        break;
+      }
+	
+      matrix_mult(transform_matrix, transform);
+          
+    } else if (strcmp(line, "apply") == 0) {
+      
+      matrix_mult(transform, edges);
+      
+    } else if (strcmp(line, "display") == 0) {
+
+      draw_lines(edges, s, c);
+      display(s);
+      
+    } else if (strcmp(line, "clear") == 0) {
+
+      clear_screen(s);
+      
+    } else if (strcmp(line, "save") == 0) {
+
+      char file;
+      fgets(line, 255, f);
+      save_extension(s, line);
+      
+    }
   }
 }
   

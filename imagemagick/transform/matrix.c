@@ -22,7 +22,14 @@ Returns: The translation matrix created using x, y and z
 as the translation offsets.
 ====================*/
 struct matrix * make_translate(double x, double y, double z) {
-  return NULL;
+  struct matrix *m = new_matrix(4, 4);
+  ident(m);
+
+  m->m[0][3] = x;
+  m->m[1][3] = x;
+  m->m[2][3] = x;
+
+  return m;
 }
 
 /*======== struct matrix * make_scale() ==========
@@ -33,7 +40,14 @@ Returns: The translation matrix creates using x, y and z
 as the scale factors
 ====================*/
 struct matrix * make_scale(double x, double y, double z) {
-  return NULL;
+  struct matrix *m = new_matrix(4, 4);
+  ident(m);
+
+  m->m[0][0] = x;
+  m->m[1][1] = x;
+  m->m[2][2] = x;
+
+  return m;
 }
 
 /*======== struct matrix * make_rotX() ==========
@@ -43,7 +57,16 @@ Returns: The rotation matrix created using theta as the
 angle of rotation and X as the axis of rotation.
 ====================*/
 struct matrix * make_rotX(double theta) {
-  return NULL;
+  double radians = (M_PI * theta) / 180.0;
+  struct matrix *m = new_matrix(4, 4);
+  ident(m);
+
+  m->m[1][1] = cos(radians);
+  m->m[1][2] = -1.0 * sin(radians);
+  m->m[2][1] = sin(radians);
+  m->m[2][2] = cos(radians);
+
+  return m;
 }
 
 /*======== struct matrix * make_rotY() ==========
@@ -53,7 +76,16 @@ Returns: The rotation matrix created using theta as the
 angle of rotation and Y as the axis of rotation.
 ====================*/
 struct matrix * make_rotY(double theta) {
-  return NULL;
+  double radians = (M_PI * theta) / 180.0;
+  struct matrix *m = new_matrix(4, 4);
+  ident(m);
+
+  m->m[0][0] = cos(radians);
+  m->m[0][2] = sin(radians);
+  m->m[2][0] = -1.0 * sin(radians);
+  m->m[2][2] = cos(radians);
+
+  return m;
 }
 
 /*======== struct matrix * make_rotZ() ==========
@@ -63,7 +95,16 @@ Returns: The rotation matrix created using theta as the
 angle of rotation and Z as the axis of rotation.
 ====================*/
 struct matrix * make_rotZ(double theta) {
-  return NULL;
+  double radians = (M_PI * theta) / 180.0;
+  struct matrix *m = new_matrix(4, 4);
+  ident(m);
+
+  m->m[0][0] = cos(radians);
+  m->m[0][1] = -1.0 * sin(radians);
+  m->m[1][0] = sin(radians);
+  m->m[1][1] = cos(radians);
+
+  return m;
 }
 
 
