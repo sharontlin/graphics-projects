@@ -6,6 +6,7 @@ rotate
 y -30
 box
 -100 125 50 200 250 100
+display
 #HEAD
 push
 move
@@ -15,6 +16,7 @@ y 90
 sphere
 0 0 0 50
 pop
+display
 #LEFT ARM
 push
 move
@@ -23,6 +25,7 @@ rotate
 x -45
 box
 -40 0 40 40 100 80
+display
 #LEFT LOWER ARM
 push
 move
@@ -31,6 +34,7 @@ box
 -10 0 10 20 125 20
 pop
 pop
+display
 #RIGHT ARM
 push
 move
@@ -39,6 +43,7 @@ rotate
 x -45
 box
 0 0 40 40 100 80
+display
 #RIGHT LOWER ARM
 push
 move
@@ -49,6 +54,7 @@ box
 -10 0 10 20 125 20
 pop
 pop
+display
 #LEFT LEG
 push
 move
